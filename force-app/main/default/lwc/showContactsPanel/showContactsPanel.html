@@ -1,0 +1,48 @@
+<template>
+    <lightning-card title="Showing Contacts based on Account" class="main"> 
+        <lightning-button variant="brand" label="Check DOM" onclick={manipulateDOM} slot="actions"></lightning-button>           
+        <lightning-layout> 
+          <lightning-layout-item flexibility="auto" padding="around-small">
+                <lightning-input label="Enter Account Name" type="search"  onchange={searchContact} value={searchKey} class="inputCls"></lightning-input>
+                <div class="parentContempList">
+                    <div class="listLabel">Contacts</div>
+                    <div class="contempList">
+                        <template if:true={contacts.data}> 
+                            <br/> 
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered">   
+                                <tbody>                   
+                                    <template for:each={contacts.data} for:item="contact">  
+                                        <tr key={contact.Id} id={contact.Id} class="conName">
+                                            <td>
+                                                <lightning-button-icon icon-name="utility:chevronright" data-id={contact.Id} size="small" onclick={toggleRow} class="btn"> </lightning-button-icon>
+                                                <span class="slds-m-left_small">{contact.Name}</span>
+                                            </td>
+                                        </tr>                                       
+                                        <!--<tr id={contact.Id} key={contact.Id} class="conli slds-hide">                          
+                                            <td> 
+                                                <lightning-record-view-form record-id={contact.Id}
+                                                                            object-api-name="Contact">
+                                                        <div class="slds-grid slds-gutters">                                                              
+                                                            <div class="slds-col">
+                                                                <lightning-output-field field-name="Department"></lightning-output-field>
+                                                            </div>
+                                                            <div class="slds-col">
+                                                                <lightning-output-field field-name="Title"></lightning-output-field>
+                                                            </div>
+                                                        </div>
+                                                </lightning-record-view-form>
+                                            </td>  
+                                        </tr>-->                         
+                                    </template>
+                                </tbody>
+                            </table>
+                        </template>
+                    </div>
+                </div>
+                <template if:true={contacts.error}>
+                    {contacts.error}
+                </template>
+          </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>
